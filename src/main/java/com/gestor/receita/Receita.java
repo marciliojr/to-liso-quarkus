@@ -11,12 +11,42 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-public class Receita extends PanacheEntity implements Serializable {
+public class Receita  implements Serializable {
 
     public BigDecimal valor;
     public LocalDateTime dataHoraReceita;
-    public String fonte;
-    @ManyToOne
-    public Conta conta;
+    public String descricao;
 
+    public BigDecimal getValor() {
+        return valor;
+    }
+
+    public void setValor(BigDecimal valor) {
+        this.valor = valor;
+    }
+
+    public LocalDateTime getDataHoraReceita() {
+        return dataHoraReceita;
+    }
+
+    public void setDataHoraReceita(LocalDateTime dataHoraReceita) {
+        this.dataHoraReceita = dataHoraReceita;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    @Override
+    public String toString() {
+        return "Receita{" +
+                "valor=" + valor +
+                ", dataHoraReceita=" + dataHoraReceita +
+                ", descricao='" + descricao + '\'' +
+                '}';
+    }
 }

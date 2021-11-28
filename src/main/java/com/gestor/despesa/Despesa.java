@@ -14,6 +14,6 @@ import java.time.LocalDateTime;
 public class Despesa extends PanacheEntity implements Serializable {
 
     public BigDecimal valor;
-    public String origem;
+    public String descricao;
     public LocalDateTime dataHoraDespesa;
 }

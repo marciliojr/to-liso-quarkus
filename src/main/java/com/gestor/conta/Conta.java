@@ -4,56 +4,70 @@ import com.gestor.banco.Banco;
 import com.gestor.despesa.Despesa;
 import com.gestor.receita.Receita;
 import com.gestor.usuario.Usuario;
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Entity
-public class Conta extends PanacheEntity implements Serializable {
-    @OneToOne
-    public Banco banco;
-    @OneToOne
-    public Usuario usuario;
-    public BigDecimal saldo;
-    @OneToMany(fetch = FetchType.LAZY)
-    public List<Despesa> despesa;
-    @OneToMany(fetch = FetchType.LAZY)
-    public List<Receita> receita;
+public class Conta implements Serializable {
 
+    @OneToOne
+    @NotNull
+    private Banco banco;
 
-    public static Conta buscarPorBanco(Integer codigoBanco){
-        Map<String, Object> params = new HashMap<>();
-        params.put("codigoBanco", codigoBanco);
-        return Conta.find("banco.numero = :codigoBanco ", params).firstResult();
+    @NotNull
+    @OneToOne
+    private Usuario usuario;
+
+    private BigDecimal saldo;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Despesa> despesas;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Receita> receitas;
+
+    public Banco getBanco() {
+        return banco;
     }
 
-    public static BigDecimal getSaldoRealConta(Integer codigoBanco, String emailUsuario) {
+    public void setBanco(Banco banco) {
+        this.banco = banco;
+    }
 
-        Map<String, Object> params = new HashMap<>();
-        params.put("usuarioEmail", emailUsuario);
-        params.put("codigoBanco", codigoBanco);
+    public Usuario getUsuario() {
+        return usuario;
+    }
 
-        Conta conta = Conta.find("banco.numero = :codigoBanco AND usuario.email = :usuarioEmail", params).firstResult();
-        BigDecimal saldo = conta.saldo;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
-        BigDecimal valor = BigDecimal.ZERO;
-        BigDecimal resposta = BigDecimal.ZERO;
-        List<Despesa> despesas = conta.despesa;
+    public BigDecimal getSaldo() {
+        return saldo;
+    }
 
-        for (Despesa d: despesas) {
-            resposta = valor.add(d.valor);
-        }
+    public void setSaldo(BigDecimal saldo) {
+        this.saldo = saldo;
+    }
 
-        return saldo.subtract(resposta);
+    public List<Despesa> getDespesas() {
+        return despesas;
+    }
+
+    public void setDespesas(List<Despesa> despesas) {
+        this.despesas = despesas;
+    }
+
+    public List<Receita> getReceitas() {
+        return receitas;
+    }
+
+    public void setReceitas(List<Receita> receitas) {
+        this.receitas = receitas;
     }
 
     @Override
@@ -62,6 +76,8 @@ public class Conta extends PanacheEntity implements Serializable {
                 "banco=" + banco +
                 ", usuario=" + usuario +
                 ", saldo=" + saldo +
+                ", despesas=" + despesas +
+                ", receitas=" + receitas +
                 '}';
     }
 }

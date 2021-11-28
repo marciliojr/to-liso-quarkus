@@ -39,8 +39,12 @@ public class ContaService {
     }
 
 
-    public Conta buscarPorBanco(Long id){
-        return Conta.buscarPorBanco(id);
+    public Conta buscarPorBanco(Integer codigoBanco){
+        return Conta.buscarPorBanco(codigoBanco);
+    }
+
+    public BigDecimal getSaldoRealConta(Integer codigoBanco, String emailUsuario){
+        return Conta.getSaldoRealConta(codigoBanco,emailUsuario);
     }
 
 

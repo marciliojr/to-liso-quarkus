@@ -12,4 +12,5 @@ public class Banco extends PanacheEntity implements Serializable {
     public String agencia;
     public Integer numero;
 
+
 }

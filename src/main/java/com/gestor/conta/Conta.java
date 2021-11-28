@@ -5,6 +5,7 @@ import com.gestor.despesa.Despesa;
 import com.gestor.receita.Receita;
 import com.gestor.usuario.Usuario;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,10 +30,30 @@ public class Conta extends PanacheEntity implements Serializable {
     public List<Receita> receita;
 
 
-    public static Conta buscarPorBanco(Long idBanco){
+    public static Conta buscarPorBanco(Integer codigoBanco){
         Map<String, Object> params = new HashMap<>();
-        params.put("idBanco", idBanco);
-        return Conta.find("banco.id = :idBanco ", params).firstResult();
+        params.put("codigoBanco", codigoBanco);
+        return Conta.find("banco.numero = :codigoBanco ", params).firstResult();
+    }
+
+    public static BigDecimal getSaldoRealConta(Integer codigoBanco, String emailUsuario) {
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("usuarioEmail", emailUsuario);
+        params.put("codigoBanco", codigoBanco);
+
+        Conta conta = Conta.find("banco.numero = :codigoBanco AND usuario.email = :usuarioEmail", params).firstResult();
+        BigDecimal saldo = conta.saldo;
+
+        BigDecimal valor = BigDecimal.ZERO;
+        BigDecimal resposta = BigDecimal.ZERO;
+        List<Despesa> despesas = conta.despesa;
+
+        for (Despesa d: despesas) {
+            resposta = valor.add(d.valor);
+        }
+
+        return saldo.subtract(resposta);
     }
 
     @Override

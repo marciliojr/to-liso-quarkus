@@ -16,6 +16,4 @@ public class Despesa extends PanacheEntity implements Serializable {
     public BigDecimal valor;
     public String origem;
     public LocalDateTime dataHoraDespesa;
-    @ManyToOne
-    public Conta conta;
 }

@@ -14,6 +14,10 @@ import java.util.List;
 @Entity
 public class Conta implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
     @OneToOne
     @NotNull
     private Banco banco;
@@ -22,6 +26,9 @@ public class Conta implements Serializable {
     @OneToOne
     private Usuario usuario;
 
+    @Enumerated(EnumType.ORDINAL)
+    private TipoConta tipoConta;
+
     private BigDecimal saldo;
 
     @OneToMany(fetch = FetchType.LAZY)
@@ -29,6 +36,14 @@ public class Conta implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<Receita> receitas;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Banco getBanco() {
         return banco;
@@ -44,6 +59,14 @@ public class Conta implements Serializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public TipoConta getTipoConta() {
+        return tipoConta;
+    }
+
+    public void setTipoConta(TipoConta tipoConta) {
+        this.tipoConta = tipoConta;
     }
 
     public BigDecimal getSaldo() {

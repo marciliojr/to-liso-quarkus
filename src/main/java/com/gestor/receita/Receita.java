@@ -3,9 +3,7 @@ package com.gestor.receita;
 import com.gestor.conta.Conta;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -13,9 +11,23 @@ import java.time.LocalDateTime;
 @Entity
 public class Receita  implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
     public BigDecimal valor;
+
     public LocalDateTime dataHoraReceita;
+
     public String descricao;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public BigDecimal getValor() {
         return valor;

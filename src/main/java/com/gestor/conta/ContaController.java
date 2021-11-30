@@ -1,5 +1,6 @@
 package com.gestor.conta;
 
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
 import javax.inject.Inject;
@@ -34,6 +35,7 @@ public class ContaController {
 
     @GET
     @Path("saldoReal/{codigoBanco}/{usuarioEmail}")
+    @APIResponse(name = "obter saldo real das contas (saldo atual - debitos")
     public Response name(@PathParam Integer codigoBanco, @PathParam String usuarioEmail) {
         BigDecimal resposta = service.getSaldoRealConta(codigoBanco, usuarioEmail);
         return Response.ok(resposta).build();

@@ -28,7 +28,7 @@ public class ContaController {
 
     @GET
     @Path("banco/{codigoBanco}")
-    public Response name(@PathParam Integer codigoBanco) {
+    public Response obterBancoPorCodigo(@PathParam Integer codigoBanco) {
         Conta resposta = service.buscarPorBanco(codigoBanco);
         return Response.ok(resposta).build();
     }
@@ -36,7 +36,7 @@ public class ContaController {
     @GET
     @Path("saldoReal/{codigoBanco}/{usuarioEmail}")
     @APIResponse(name = "obter saldo real das contas (saldo atual - debitos")
-    public Response name(@PathParam Integer codigoBanco, @PathParam String usuarioEmail) {
+    public Response obterSaldoRealConta(@PathParam Integer codigoBanco, @PathParam String usuarioEmail) {
         BigDecimal resposta = service.getSaldoRealConta(codigoBanco, usuarioEmail);
         return Response.ok(resposta).build();
     }

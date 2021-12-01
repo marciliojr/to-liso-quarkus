@@ -15,7 +15,7 @@ public class ContaRepository implements PanacheRepository<Conta> {
     public Conta buscarPorBanco(Integer codigoBanco) {
         Map<String, Object> params = new HashMap<>();
         params.put("codigoBanco", codigoBanco);
-        return find("banco.numero = :codigoBanco ", params).firstResult();
+        return find("banco.codigo = :codigoBanco ", params).firstResult();
     }
 
     public BigDecimal getSaldoRealConta(Integer codigoBanco, String emailUsuario) {
@@ -24,7 +24,7 @@ public class ContaRepository implements PanacheRepository<Conta> {
         params.put("usuarioEmail", emailUsuario);
         params.put("codigoBanco", codigoBanco);
 
-        Conta conta = find("banco.numero = :codigoBanco AND usuario.email = :usuarioEmail", params).firstResult();
+        Conta conta = find("banco.codigo = :codigoBanco AND usuario.email = :usuarioEmail", params).firstResult();
         BigDecimal saldo = conta.getSaldo();
 
         BigDecimal valor = BigDecimal.ZERO;

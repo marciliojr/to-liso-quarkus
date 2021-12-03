@@ -11,7 +11,7 @@ import javax.ws.rs.core.Application;
 
 @OpenAPIDefinition(
         tags = {
-                @Tag(name = "user", description = "User operations."),
+                @Tag(name = "ToLiso", description = "Operações do Sistema ToLiso."),
         },
         info = @Info(
                 title = "To Liso",

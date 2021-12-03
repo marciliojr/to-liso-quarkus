@@ -1,6 +1,6 @@
 package com.gestor.conta;
 
-import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
 import javax.inject.Inject;
@@ -17,9 +17,9 @@ public class ContaController {
     private ContaService service;
 
     @POST
-    public Response insere(){
+    public Response insere(Conta conta){
         try {
-            service.insere();
+            service.insere(conta);
         }catch (Exception e){
             return Response.status(400,e.getMessage()).build();
         }
@@ -35,7 +35,10 @@ public class ContaController {
 
     @GET
     @Path("saldoReal/{codigoBanco}/{usuarioEmail}")
-    @APIResponse(name = "obter saldo real das contas (saldo atual - debitos")
+    @Operation(
+	summary = "Sumerio",
+	description = "Descricao"
+)
     public Response obterSaldoRealConta(@PathParam Integer codigoBanco, @PathParam String usuarioEmail) {
         BigDecimal resposta = service.getSaldoRealConta(codigoBanco, usuarioEmail);
         return Response.ok(resposta).build();

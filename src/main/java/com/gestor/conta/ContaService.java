@@ -17,7 +17,8 @@ public class ContaService {
     private ContaRepository repositorio;
 
     @Transactional
-    public void insere() {
+    public void insere(Conta conta) {
+    repositorio.persist(conta);
 
     }
 
@@ -26,6 +27,7 @@ public class ContaService {
     }
 
     public BigDecimal getSaldoRealConta(Integer codigoBanco, String emailUsuario) {
+
         return repositorio.getSaldoRealConta(codigoBanco, emailUsuario);
     }
 

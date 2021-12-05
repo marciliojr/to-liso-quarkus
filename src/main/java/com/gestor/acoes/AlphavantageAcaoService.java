@@ -29,7 +29,7 @@ public class AlphavantageAcaoService {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        JSONObject valorAcaoDoDia = (JSONObject) timesSeriesDaily.get(data.minusDays(1).format(formatter));
+        JSONObject valorAcaoDoDia = (JSONObject) timesSeriesDaily.get(data.format(formatter));
 
         RespostaAcaoDTO respostaDTO = new RespostaAcaoDTO();
         respostaDTO.setValorAbertura(valorAcaoDoDia.getBigDecimal("1. open"));

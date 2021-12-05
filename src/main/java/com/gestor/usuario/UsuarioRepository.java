@@ -15,4 +15,8 @@ public class UsuarioRepository implements PanacheRepository<Usuario> {
       return  find("email", email).count() > 0;
     }
 
+    public Usuario buscarUsuarioPorEmail(String email){
+        return  find("email", email).firstResult();
+    }
+
 }

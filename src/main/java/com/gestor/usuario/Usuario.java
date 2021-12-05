@@ -1,28 +1,29 @@
 package com.gestor.usuario;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 public class Usuario implements Serializable {
 
+    private static final long serialVersionUID = -5002878482702565748L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotEmpty
+    @NotBlank
+    @Email
     private String email;
-    @NotNull
+    @NotBlank
     private String nick;
-    @NotNull
+    @NotBlank
     private String senha;
 
     public Usuario() {
@@ -65,11 +66,11 @@ public class Usuario implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Usuario usuario = (Usuario) o;
-        return id.equals(usuario.id) && email.equals(usuario.email) && nick.equals(usuario.nick) && senha.equals(usuario.senha);
+        return email.equals(usuario.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, nick, senha);
+        return Objects.hash(email);
     }
 }

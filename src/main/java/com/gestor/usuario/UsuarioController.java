@@ -1,13 +1,13 @@
 package com.gestor.usuario;
 
 import com.gestor.exceptions.NegocioException;
+import com.gestor.usuario.dto.UsuarioDTO;
+import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
-import javax.annotation.Resource;
 import javax.inject.Inject;
-import javax.validation.Valid;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -23,21 +23,14 @@ public class UsuarioController {
     private UsuarioService service;
 
     @POST
-    @APIResponse(
-	responseCode = "200",
-	description = "Serviço responsavel pela criação do usuario.",
-	content = @Content(mediaType = MediaType.APPLICATION_JSON)
-)
-    public Response insere(Usuario usuario) throws NoSuchAlgorithmException, UnsupportedEncodingException, NegocioException {
+    @Operation( description = "Serviço responsavel por cadastrar o usuario.")
+    public Response insere(UsuarioDTO usuario) throws NoSuchAlgorithmException, UnsupportedEncodingException, NegocioException {
         service.insere(usuario);
-        return Response.ok().build();
+        return Response.status(Response.Status.CREATED).build();
     }
 
     @GET
-    @APIResponse(
-            responseCode = "200",
-            description = "Serviço que retorna um usuario apartir do seu email.",
-            content = @Content(mediaType = MediaType.APPLICATION_JSON))
+    @Operation( description = "Serviço responsavel por retornar Usuario por email.")
     @Path("buscarPorEmail/{email}")
     public Response buscarPorEmail(@PathParam String email) {
         return Response.ok(service.buscarPorEmail(email)).build();

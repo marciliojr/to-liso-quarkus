@@ -1,22 +1,12 @@
-package com.gestor.usuario;
+package com.gestor.usuario.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
-public class Usuario implements Serializable {
+public class UsuarioDTO implements Serializable {
 
-    private static final long serialVersionUID = -5002878482702565748L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
 
     @NotBlank
     @Email
@@ -26,10 +16,10 @@ public class Usuario implements Serializable {
     @NotBlank
     private String senha;
 
-    public Usuario() {
+    public UsuarioDTO() {
     }
 
-    public Usuario(String email, String nick, String senha) {
+    public UsuarioDTO(String email, String nick, String senha) {
         this.email = email;
         this.nick = nick;
         this.senha = senha;
@@ -59,24 +49,25 @@ public class Usuario implements Serializable {
         this.senha = senha;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Usuario usuario = (Usuario) o;
-        return email.equals(usuario.email);
+        UsuarioDTO that = (UsuarioDTO) o;
+        return Objects.equals(email, that.email);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(email);
+    }
+
+    @Override
+    public String toString() {
+        return "UsuarioDTO{" +
+                "email='" + email + '\'' +
+                ", nick='" + nick + '\'' +
+                ", senha='" + senha + '\'' +
+                '}';
     }
 }

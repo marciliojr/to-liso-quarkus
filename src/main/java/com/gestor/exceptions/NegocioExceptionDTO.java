@@ -6,39 +6,39 @@ import java.util.List;
 
 public class NegocioExceptionDTO implements Serializable {
 
-    private List<String> mensagens = new ArrayList<String>();
+    private List<String> mensagensDeErro = new ArrayList<String>();
 
     public NegocioExceptionDTO() {
     }
 
     public NegocioExceptionDTO(String mensagem) {
-        mensagens.add(mensagem);
+        mensagensDeErro.add(mensagem);
     }
 
     public NegocioExceptionDTO(List<String> mensagens) {
-        this.mensagens = mensagens;
+        this.mensagensDeErro = mensagens;
     }
 
     public void addMensagem(String mensagem){
-        mensagens.add(mensagem);
+        mensagensDeErro.add(mensagem);
     }
 
-    public List<String> getMensagens() {
-        return mensagens;
+    public List<String> getMensagensDeErro() {
+        return mensagensDeErro;
     }
 
-    public void setMensagens(List<String> mensagens) {
-        this.mensagens = mensagens;
+    public void setMensagensDeErro(List<String> mensagensDeErro) {
+        this.mensagensDeErro = mensagensDeErro;
     }
 
     public boolean comMensagens(){
-       return !this.mensagens.isEmpty();
+       return !this.mensagensDeErro.isEmpty();
     }
 
     @Override
     public String toString() {
         return "{" +
-                "mensagens=" + mensagens +
+                mensagensDeErro +
                 '}';
     }
 }

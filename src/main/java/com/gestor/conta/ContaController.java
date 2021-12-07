@@ -36,7 +36,6 @@ public class ContaController {
     @GET
     @Path("saldoReal/{codigoBanco}/{usuarioEmail}")
     @Operation(
-	summary = "Sumerio",
 	description = "Descricao"
 )
     public Response obterSaldoRealConta(@PathParam Integer codigoBanco, @PathParam String usuarioEmail) {

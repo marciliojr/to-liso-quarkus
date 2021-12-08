@@ -3,6 +3,7 @@ package com.gestor.usuario;
 import com.gestor.exceptions.NegocioException;
 import com.gestor.exceptions.NegocioExceptionDTO;
 import com.gestor.usuario.dto.UsuarioDTO;
+import com.gestor.util.CriptografiaUtil;
 import com.gestor.util.MensagemErro;
 
 import javax.enterprise.context.RequestScoped;
@@ -31,9 +32,10 @@ public class UsuarioService {
         if (repositorio.existeUsuarioComEmail(usuario.getEmail())) {
             throw new NegocioException(MensagemErro.MENSAGEM_EMAIL_JA_CADASTRADO);
         }
-        criptografarSenhaUsuario(usuario);
 
-        Usuario usuarioBase = new Usuario(usuario.getEmail(), usuario.getNick(), usuario.getSenha());
+        String senhaCriptografada = CriptografiaUtil.criptografarSenhaUsuario(usuario.getSenha());
+
+        Usuario usuarioBase = new Usuario(usuario.getEmail(), usuario.getNick(), senhaCriptografada);
 
         repositorio.persist(usuarioBase);
     }
@@ -53,12 +55,6 @@ public class UsuarioService {
         }
     }
 
-    private void criptografarSenhaUsuario(UsuarioDTO usuario) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        MessageDigest algorithm = null;
-        algorithm = MessageDigest.getInstance("MD5");
-        byte messageDigest[] = algorithm.digest(usuario.getSenha().getBytes("UTF-8"));
-        usuario.setSenha(messageDigest.toString());
-    }
 
     public Usuario buscarPorEmail(String email) {
         return repositorio.buscarUsuarioPorEmail(email);

@@ -3,6 +3,7 @@ package com.gestor.usuario;
 import com.gestor.exceptions.NegocioException;
 import com.gestor.exceptions.NegocioExceptionDTO;
 import com.gestor.usuario.dto.UsuarioDTO;
+import com.gestor.usuario.dto.UsuarioRespostaDTO;
 import com.gestor.util.CriptografiaUtil;
 import com.gestor.util.MensagemErro;
 
@@ -56,7 +57,7 @@ public class UsuarioService {
     }
 
 
-    public Usuario buscarPorEmail(String email) {
+    public UsuarioRespostaDTO buscarPorEmail(String email) {
         return repositorio.buscarUsuarioPorEmail(email);
     }
 

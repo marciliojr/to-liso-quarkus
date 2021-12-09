@@ -1,6 +1,7 @@
 package com.gestor.usuario;
 
 import com.gestor.exceptions.NegocioException;
+import com.gestor.usuario.dto.UsuarioRespostaDTO;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -15,8 +16,8 @@ public class UsuarioRepository implements PanacheRepository<Usuario> {
       return  find("email", email).count() > 0;
     }
 
-    public Usuario buscarUsuarioPorEmail(String email){
-        return  find("email", email).firstResult();
+    public UsuarioRespostaDTO buscarUsuarioPorEmail(String email){
+        return  find("email", email).project(UsuarioRespostaDTO.class).firstResult();
     }
 
 }

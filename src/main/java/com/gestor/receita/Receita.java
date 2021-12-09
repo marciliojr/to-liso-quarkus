@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 public class Receita  implements Serializable {
@@ -51,6 +52,20 @@ public class Receita  implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Receita receita = (Receita) o;
+        return Objects.equals(valor, receita.valor) && Objects.equals(dataHoraReceita, receita.dataHoraReceita) && Objects.equals(descricao, receita.descricao);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(valor, dataHoraReceita, descricao);
     }
 
     @Override

@@ -6,15 +6,18 @@ import com.gestor.usuario.dto.UsuarioDTO;
 import com.gestor.usuario.dto.UsuarioRespostaDTO;
 import com.gestor.util.CriptografiaUtil;
 import com.gestor.util.MensagemErro;
+import org.jboss.logging.Logger;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.validation.Validator;
 import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.MessageFormat;
+
+import static com.gestor.util.ConstanteUtil.ACAO_INSERIR;
+import static com.gestor.util.ConstanteUtil.ACAO_SUCESSO;
 
 @RequestScoped
 public class UsuarioService {
@@ -25,9 +28,11 @@ public class UsuarioService {
     @Inject
     private Validator validador;
 
+    private static final Logger LOG = Logger.getLogger(UsuarioService.class);
+
     @Transactional
     public void insere(UsuarioDTO usuario) throws NoSuchAlgorithmException, UnsupportedEncodingException, NegocioException {
-
+        LOG.info(ACAO_INSERIR + ": Usuario: " + usuario.toString());
         validarObjeto(usuario);
 
         if (repositorio.existeUsuarioComEmail(usuario.getEmail())) {
@@ -39,6 +44,7 @@ public class UsuarioService {
         Usuario usuarioBase = new Usuario(usuario.getEmail(), usuario.getNick(), senhaCriptografada);
 
         repositorio.persist(usuarioBase);
+        LOG.info(ACAO_SUCESSO + ": Usuario: "+usuario.toString());
     }
 
     private void validarObjeto(UsuarioDTO usuario) throws NegocioException {
@@ -52,6 +58,7 @@ public class UsuarioService {
         });
 
         if (negocioExceptionDTO.comMensagens()) {
+            LOG.error("Erro: " + negocioExceptionDTO.toString());
             throw new NegocioException(negocioExceptionDTO.toString());
         }
     }

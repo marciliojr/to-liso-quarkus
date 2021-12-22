@@ -11,24 +11,14 @@ public class CriptografiaUtil {
 
     public static String criptografarSenhaUsuario(String chave) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         MessageDigest algorithm = null;
-        algorithm = MessageDigest.getInstance("MD5");
+        algorithm = MessageDigest.getInstance("SHA-256");
         byte messageDigest[] = algorithm.digest(chave.getBytes("UTF-8"));
-        char[] hexadecimal = hexCodes(messageDigest);
-        return hexadecimal.toString();
-    }
 
-
-    private static char[] hexCodes(byte[] text) {
-        char[] hexOutput = new char[text.length * 2];
-        String hexString;
-
-        for (int i = 0; i < text.length; i++) {
-            hexString = "00" + Integer.toHexString(text[i]);
-            hexString.toUpperCase().getChars(hexString.length() - 2,
-                    hexString.length(), hexOutput, i * 2);
+        StringBuilder hexString = new StringBuilder();
+        for (byte b : messageDigest) {
+            hexString.append(String.format("%02X", 0xFF & b));
         }
-        return hexOutput;
-
-
+        return hexString.toString();
     }
+
 }

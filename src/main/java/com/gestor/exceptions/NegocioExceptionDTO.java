@@ -12,6 +12,7 @@ public class NegocioExceptionDTO implements Serializable {
     }
 
     public NegocioExceptionDTO(String mensagem) {
+
         mensagensDeErro.add(mensagem);
     }
 

@@ -2,8 +2,10 @@ package com.gestor.usuario;
 
 import com.gestor.exceptions.NegocioException;
 import com.gestor.exceptions.NegocioExceptionDTO;
+import com.gestor.usuario.dto.UsuarioAutenticadoDTO;
 import com.gestor.usuario.dto.UsuarioDTO;
 import com.gestor.usuario.dto.UsuarioRespostaDTO;
+import com.gestor.util.ConstanteUtil;
 import com.gestor.util.CriptografiaUtil;
 import com.gestor.util.MensagemErro;
 import org.jboss.logging.Logger;
@@ -44,7 +46,7 @@ public class UsuarioService {
         Usuario usuarioBase = new Usuario(usuario.getEmail(), usuario.getNick(), senhaCriptografada);
 
         repositorio.persist(usuarioBase);
-        LOG.info(ACAO_SUCESSO + ": Usuario: "+usuario.toString());
+        LOG.info(ACAO_SUCESSO + ": Usuario: " + usuario.toString());
     }
 
     private void validarObjeto(UsuarioDTO usuario) throws NegocioException {
@@ -64,8 +66,18 @@ public class UsuarioService {
     }
 
 
-    public UsuarioRespostaDTO buscarPorEmail(String email) {
-        return repositorio.buscarUsuarioPorEmail(email);
+    public UsuarioRespostaDTO login(UsuarioAutenticadoDTO usuario) throws UnsupportedEncodingException, NoSuchAlgorithmException, NegocioException {
+
+            String senha = usuario.getSenha();
+            usuario.setSenha(CriptografiaUtil.criptografarSenhaUsuario(usuario.getSenha()));
+
+        UsuarioRespostaDTO login = repositorio.login(usuario);
+
+        if(login == null){
+            throw new NegocioException(MensagemErro.MENSAGEM_USUARIO_NAO_ENCONTRADO);
+        }
+
+        return login;
     }
 
 

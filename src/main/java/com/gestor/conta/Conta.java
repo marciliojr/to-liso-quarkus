@@ -1,5 +1,6 @@
 package com.gestor.conta;
 
+import com.gestor.acoes.Acao;
 import com.gestor.banco.Banco;
 import com.gestor.despesa.Despesa;
 import com.gestor.receita.Receita;
@@ -37,6 +38,9 @@ public class Conta implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<Receita> receitas;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Acao> acoes;
 
     public Long getId() {
         return id;

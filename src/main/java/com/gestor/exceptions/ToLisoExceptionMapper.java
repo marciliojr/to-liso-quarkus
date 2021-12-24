@@ -10,6 +10,6 @@ public class ToLisoExceptionMapper implements ExceptionMapper<NegocioException> 
 
     @Override
     public Response toResponse(NegocioException e) {
-        return Response.status(Response.Status.OK).entity(new NegocioExceptionDTO(e.getMessage())).build();
+        return Response.status(Response.Status.BAD_REQUEST).entity(new NegocioExceptionDTO(e.getMessage())).build();
     }
 }

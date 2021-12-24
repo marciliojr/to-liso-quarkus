@@ -14,5 +14,6 @@ public class MensagemErro {
      * */
 
     public static String MENSAGEM_EMAIL_JA_CADASTRADO = "001 - Email Já Cadastrado";
+    public static String MENSAGEM_USUARIO_NAO_ENCONTRADO = "001 - Usuário Não Encontrado";
 
 }

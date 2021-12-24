@@ -7,7 +7,8 @@ public enum TipoConta {
     CONTA_CORRENTE(1, "Corrente"),
     CONTA_SALARIO(2,"Salario"),
     CONTA_POUPANÇA(3, "Poupança"),
-    CONTA_DIGITAL(4,"Digital");
+    CONTA_DIGITAL(4,"Digital"),
+    CONTA_ACOES(5,"Ações");
 
     private Integer codigo;
     private String descricao;

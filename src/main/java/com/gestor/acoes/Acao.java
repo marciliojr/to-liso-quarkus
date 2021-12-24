@@ -1,17 +1,16 @@
 package com.gestor.acoes;
 
-import org.eclipse.yasson.internal.model.customization.StrategiesProvider;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
-public class Acoes {
+public class Acao implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,7 +20,7 @@ public class Acoes {
     private LocalDate  data;
     private String nome;
 
-    public Acoes() {
+    public Acao() {
     }
 
     public Long getId() {
@@ -68,7 +67,7 @@ public class Acoes {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Acoes acoes = (Acoes) o;
+        Acao acoes = (Acao) o;
         return Objects.equals(data, acoes.data) && Objects.equals(nome, acoes.nome);
     }
 

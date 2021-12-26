@@ -9,6 +9,7 @@ import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 public class Receita  implements Serializable {
@@ -35,5 +36,88 @@ public class Receita  implements Serializable {
     @OneToOne
     private Categoria categoria;
 
+    public Receita() {
+    }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public BigDecimal getValor() {
+        return valor;
+    }
+
+    public void setValor(BigDecimal valor) {
+        this.valor = valor;
+    }
+
+    public LocalDateTime getDataHoraReceita() {
+        return dataHoraReceita;
+    }
+
+    public void setDataHoraReceita(LocalDateTime dataHoraReceita) {
+        this.dataHoraReceita = dataHoraReceita;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Conta getConta() {
+        return conta;
+    }
+
+    public void setConta(Conta conta) {
+        this.conta = conta;
+    }
+
+    public Cartao getCartao() {
+        return cartao;
+    }
+
+    public void setCartao(Cartao cartao) {
+        this.cartao = cartao;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Receita receita = (Receita) o;
+        return Objects.equals(id, receita.id) && Objects.equals(valor, receita.valor) && Objects.equals(dataHoraReceita, receita.dataHoraReceita) && Objects.equals(descricao, receita.descricao) && Objects.equals(conta, receita.conta) && Objects.equals(cartao, receita.cartao) && Objects.equals(categoria, receita.categoria);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, valor, dataHoraReceita, descricao, conta, cartao, categoria);
+    }
+
+    @Override
+    public String toString() {
+        return "Receita{" +
+                "id=" + id +
+                ", valor=" + valor +
+                ", dataHoraReceita=" + dataHoraReceita +
+                ", descricao='" + descricao + '\'' +
+                ", conta=" + conta +
+                ", cartao=" + cartao +
+                ", categoria=" + categoria +
+                '}';
+    }
 }

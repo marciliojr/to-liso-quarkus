@@ -1,13 +1,16 @@
 package com.gestor.conta;
 
 import com.gestor.despesa.Despesa;
+import com.gestor.util.dto.BigDecimalDTO;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class ContaRepository implements PanacheRepository<Conta> {
@@ -18,23 +21,12 @@ public class ContaRepository implements PanacheRepository<Conta> {
         return find("banco.codigo = :codigoBanco ", params).firstResult();
     }
 
-    public BigDecimal getSaldoRealConta(Integer codigoBanco, String emailUsuario) {
+    public BigDecimalDTO obterSaldoGeralContas(String emailUsuario){
+        StringBuilder queryHN = new StringBuilder();
+        queryHN.append("SELECT SUM(c.saldo)  FROM Conta c  INNER JOIN Usuario u ON u.id  = c.usuario_id WHERE u.email = :usuarioEmail ");
 
-        Map<String, Object> params = new HashMap<>();
-        params.put("usuarioEmail", emailUsuario);
-        params.put("codigoBanco", codigoBanco);
-
-        Conta conta = find("banco.codigo = :codigoBanco AND usuario.email = :usuarioEmail", params).firstResult();
-        BigDecimal saldo = conta.getSaldo();
-
-        BigDecimal valor = BigDecimal.ZERO;
-        BigDecimal resposta = BigDecimal.ZERO;
-        List<Despesa> despesas = conta.getDespesas();
-
-        for (Despesa d : despesas) {
-            resposta = valor.add(d.valor);
-        }
-
-        return saldo.subtract(resposta);
+        BigDecimal somatorio = (BigDecimal) getEntityManager().createNativeQuery(queryHN.toString()).setParameter("usuarioEmail",emailUsuario).getSingleResult();
+        BigDecimalDTO valor = new BigDecimalDTO(somatorio);
+        return valor;
     }
 }

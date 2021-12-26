@@ -1,5 +1,6 @@
 package com.gestor.conta;
 
+import com.gestor.util.dto.BigDecimalDTO;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
@@ -33,13 +34,11 @@ public class ContaController {
         return Response.ok(resposta).build();
     }
 
+
     @GET
-    @Path("saldoReal/{codigoBanco}/{usuarioEmail}")
-    @Operation(
-	description = "Descricao"
-)
-    public Response obterSaldoRealConta(@PathParam Integer codigoBanco, @PathParam String usuarioEmail) {
-        BigDecimal resposta = service.getSaldoRealConta(codigoBanco, usuarioEmail);
+    @Path("saldoGeral/{usuarioEmail}")
+    public Response obterSaldoGeralContas(@PathParam String usuarioEmail){
+        BigDecimalDTO resposta = service.obterSaldoGeralContas(usuarioEmail);
         return Response.ok(resposta).build();
     }
 

@@ -3,6 +3,7 @@ package com.gestor.conta;
 import com.gestor.banco.Banco;
 import com.gestor.despesa.Despesa;
 import com.gestor.usuario.Usuario;
+import com.gestor.util.dto.BigDecimalDTO;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -26,10 +27,9 @@ public class ContaService {
         return repositorio.buscarPorBanco(codigoBanco);
     }
 
-    public BigDecimal getSaldoRealConta(Integer codigoBanco, String emailUsuario) {
-
-        return repositorio.getSaldoRealConta(codigoBanco, emailUsuario);
-    }
+   public BigDecimalDTO obterSaldoGeralContas(String emailUsuario){
+        return repositorio.obterSaldoGeralContas(emailUsuario);
+   }
 
 
 }

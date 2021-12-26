@@ -41,9 +41,10 @@ public class UsuarioService {
             throw new NegocioException(MensagemErro.MENSAGEM_EMAIL_JA_CADASTRADO);
         }
 
-        String senhaCriptografada = CriptografiaUtil.criptografarSenhaUsuario(usuario.getSenha());
+        //TODO descomentar
+        //String senhaCriptografada = CriptografiaUtil.criptografarSenhaUsuario(usuario.getSenha());
 
-        Usuario usuarioBase = new Usuario(usuario.getEmail(), usuario.getNick(), senhaCriptografada);
+        Usuario usuarioBase = new Usuario(usuario.getEmail(), usuario.getNick(), usuario.getSenha());
 
         repositorio.persist(usuarioBase);
         LOG.info(ACAO_SUCESSO + ": Usuario: " + usuario.toString());
@@ -69,7 +70,8 @@ public class UsuarioService {
     public UsuarioRespostaDTO login(UsuarioAutenticadoDTO usuario) throws UnsupportedEncodingException, NoSuchAlgorithmException, NegocioException {
 
             String senha = usuario.getSenha();
-            usuario.setSenha(CriptografiaUtil.criptografarSenhaUsuario(usuario.getSenha()));
+            //TODO Descriptografar no final
+            //usuario.setSenha(CriptografiaUtil.criptografarSenhaUsuario(usuario.getSenha()));
 
         UsuarioRespostaDTO login = repositorio.login(usuario);
 

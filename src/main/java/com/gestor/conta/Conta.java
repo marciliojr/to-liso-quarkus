@@ -34,12 +34,6 @@ public class Conta implements Serializable {
     private BigDecimal saldo;
 
     @OneToMany(fetch = FetchType.LAZY)
-    private List<Despesa> despesas;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Receita> receitas;
-
-    @OneToMany(fetch = FetchType.LAZY)
     private List<Acao> acoes;
 
     public Long getId() {
@@ -82,21 +76,6 @@ public class Conta implements Serializable {
         this.saldo = saldo;
     }
 
-    public List<Despesa> getDespesas() {
-        return despesas;
-    }
-
-    public void setDespesas(List<Despesa> despesas) {
-        this.despesas = despesas;
-    }
-
-    public List<Receita> getReceitas() {
-        return receitas;
-    }
-
-    public void setReceitas(List<Receita> receitas) {
-        this.receitas = receitas;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -114,11 +93,12 @@ public class Conta implements Serializable {
     @Override
     public String toString() {
         return "Conta{" +
-                "banco=" + banco +
+                "id=" + id +
+                ", banco=" + banco +
                 ", usuario=" + usuario +
+                ", tipoConta=" + tipoConta +
                 ", saldo=" + saldo +
-                ", despesas=" + despesas +
-                ", receitas=" + receitas +
+                ", acoes=" + acoes +
                 '}';
     }
 }

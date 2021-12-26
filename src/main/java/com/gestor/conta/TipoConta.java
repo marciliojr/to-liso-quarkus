@@ -1,6 +1,7 @@
 package com.gestor.conta;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 public enum TipoConta {
 
@@ -27,9 +28,7 @@ public enum TipoConta {
     }
 
     public TipoConta obterEnumPorCodigo(Integer codigo) {
-
-        Arrays.stream(TipoConta.values()).filter(resposta -> resposta.codigo.equals(codigo)).findFirst();
-
-        return null;
+        Optional<TipoConta> tipoConta = Arrays.stream(TipoConta.values()).filter(resposta -> resposta.codigo.equals(codigo)).findFirst();
+        return tipoConta.orElse(null);
     }
 }

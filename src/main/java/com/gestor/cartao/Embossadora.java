@@ -1,9 +1,6 @@
 package com.gestor.cartao;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -13,11 +10,25 @@ public class Embossadora implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String bandeira;
-    private Integer tipo;
+    @Enumerated
+    private TipoCartao tipoCartao;
 
     public Embossadora() {
+    }
+
+    public Embossadora(Long id, String bandeira, TipoCartao tipoCartao) {
+        this.id = id;
+        this.bandeira = bandeira;
+        this.tipoCartao = tipoCartao;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getBandeira() {
@@ -28,12 +39,12 @@ public class Embossadora implements Serializable {
         this.bandeira = bandeira;
     }
 
-    public Integer getTipo() {
-        return tipo;
+    public TipoCartao getTipoCartao() {
+        return tipoCartao;
     }
 
-    public void setTipo(Integer tipo) {
-        this.tipo = tipo;
+    public void setTipoCartao(TipoCartao tipoCartao) {
+        this.tipoCartao = tipoCartao;
     }
 
     @Override
@@ -41,19 +52,20 @@ public class Embossadora implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Embossadora that = (Embossadora) o;
-        return Objects.equals(bandeira, that.bandeira) && Objects.equals(tipo, that.tipo);
+        return Objects.equals(id, that.id) && Objects.equals(bandeira, that.bandeira) && tipoCartao == that.tipoCartao;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(bandeira, tipo);
+        return Objects.hash(id, bandeira, tipoCartao);
     }
 
     @Override
     public String toString() {
         return "Embossadora{" +
-                "bandeira='" + bandeira + '\'' +
-                ", tipo=" + tipo +
+                "id=" + id +
+                ", bandeira='" + bandeira + '\'' +
+                ", tipoCartao=" + tipoCartao +
                 '}';
     }
 }

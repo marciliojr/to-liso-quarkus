@@ -1,5 +1,7 @@
 package com.gestor.despesa;
 
+import com.gestor.cartao.Cartao;
+import com.gestor.categoria.Categoria;
 import com.gestor.conta.Conta;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
@@ -15,8 +17,10 @@ import java.util.Objects;
 @Entity
 public class Despesa implements Serializable {
 
+    private static final long serialVersionUID = -8711759674556844139L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
@@ -29,7 +33,24 @@ public class Despesa implements Serializable {
     @NotNull
     public LocalDateTime dataHoraDespesa;
 
+    @OneToOne
+    private Conta conta;
+
+    @OneToOne
+    private Cartao cartao;
+
+    @OneToOne
+    private Categoria categoria;
+
     public Despesa() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public BigDecimal getValor() {
@@ -56,12 +77,28 @@ public class Despesa implements Serializable {
         this.dataHoraDespesa = dataHoraDespesa;
     }
 
-    public Long getId() {
-        return id;
+    public Conta getConta() {
+        return conta;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setConta(Conta conta) {
+        this.conta = conta;
+    }
+
+    public Cartao getCartao() {
+        return cartao;
+    }
+
+    public void setCartao(Cartao cartao) {
+        this.cartao = cartao;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
     @Override
@@ -69,20 +106,24 @@ public class Despesa implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Despesa despesa = (Despesa) o;
-        return valor.equals(despesa.valor) && descricao.equals(despesa.descricao) && dataHoraDespesa.equals(despesa.dataHoraDespesa);
+        return Objects.equals(id, despesa.id) && Objects.equals(valor, despesa.valor) && Objects.equals(descricao, despesa.descricao) && Objects.equals(dataHoraDespesa, despesa.dataHoraDespesa) && Objects.equals(conta, despesa.conta) && Objects.equals(cartao, despesa.cartao) && Objects.equals(categoria, despesa.categoria);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(valor, descricao, dataHoraDespesa);
+        return Objects.hash(id, valor, descricao, dataHoraDespesa, conta, cartao, categoria);
     }
 
     @Override
     public String toString() {
         return "Despesa{" +
-                "valor=" + valor +
+                "id=" + id +
+                ", valor=" + valor +
                 ", descricao='" + descricao + '\'' +
                 ", dataHoraDespesa=" + dataHoraDespesa +
+                ", conta=" + conta +
+                ", cartao=" + cartao +
+                ", categoria=" + categoria +
                 '}';
     }
 }

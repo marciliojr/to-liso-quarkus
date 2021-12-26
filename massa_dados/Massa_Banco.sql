@@ -3,7 +3,7 @@ insert into Usuario (email, nick, senha) values ('a@a.com', 'a', '123'),
 ('marcilio@gmail.com', 'Marcilio', '123'),
 ('teste@teste.com', 'teste', '123');
 
--- criar tabela banco
+-- Criar tabela banco
 insert into Banco (agencia, codigo, nome) values
 ('459', '8200', 'Banco do Brasil'),
 ('51', '28318', 'Bradesco'),
@@ -16,7 +16,7 @@ insert into Banco (agencia, codigo, nome) values
 ('97838', '62660', 'Banco Safra'),
 ('8', '2', 'Itau');
 
--- criar tabela conta
+-- Criar tabela conta
 insert into Conta (banco_id, usuario_id, tipoConta, saldo)
 values
 (6, 2, 1,350);
@@ -29,3 +29,35 @@ values
 (10, 2, 3,10),
 (3, 2, 4,10),
 (2, 1, 1,10);
+
+-- Categoria
+insert into Categoria (descricao) values
+('Alimentação'),
+('Aluguel'),
+('Mensalidade Educação'),
+('Serviço Streaming'),
+('Serviços'),
+('Agua'),
+('Luz'),
+('Gás'),
+('Combustivel'),
+('Manutenção Automotiva'),
+('Dizimo'),
+('Ofertas'),
+('Roupas'),
+('Higiene'),
+('Farmacia'),
+('Beleza'),
+('Saude'),
+('Lazer'),
+('Livros'),
+('Faturas'),
+('Impostos'),
+('Multas'),
+('Doação'),
+('Investimento'),
+('Mercado'),
+('Viagens'),
+('Pets'),
+('Familia e Filhos'),
+('Outros');

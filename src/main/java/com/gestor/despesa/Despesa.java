@@ -3,6 +3,7 @@ package com.gestor.despesa;
 import com.gestor.cartao.Cartao;
 import com.gestor.categoria.Categoria;
 import com.gestor.conta.Conta;
+import com.gestor.util.TipoAcaoEfetivadaEnum;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 import javax.persistence.*;
@@ -41,6 +42,9 @@ public class Despesa implements Serializable {
 
     @OneToOne
     private Categoria categoria;
+
+    @Enumerated
+    private TipoAcaoEfetivadaEnum tipoAcao;
 
     public Despesa() {
     }
@@ -101,17 +105,25 @@ public class Despesa implements Serializable {
         this.categoria = categoria;
     }
 
+    public TipoAcaoEfetivadaEnum getTipoAcao() {
+        return tipoAcao;
+    }
+
+    public void setTipoAcao(TipoAcaoEfetivadaEnum tipoAcao) {
+        this.tipoAcao = tipoAcao;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Despesa despesa = (Despesa) o;
-        return Objects.equals(id, despesa.id) && Objects.equals(valor, despesa.valor) && Objects.equals(descricao, despesa.descricao) && Objects.equals(dataHoraDespesa, despesa.dataHoraDespesa) && Objects.equals(conta, despesa.conta) && Objects.equals(cartao, despesa.cartao) && Objects.equals(categoria, despesa.categoria);
+        return Objects.equals(id, despesa.id) && Objects.equals(valor, despesa.valor) && Objects.equals(descricao, despesa.descricao) && Objects.equals(dataHoraDespesa, despesa.dataHoraDespesa) && Objects.equals(conta, despesa.conta) && Objects.equals(cartao, despesa.cartao) && Objects.equals(categoria, despesa.categoria) && tipoAcao == despesa.tipoAcao;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, valor, descricao, dataHoraDespesa, conta, cartao, categoria);
+        return Objects.hash(id, valor, descricao, dataHoraDespesa, conta, cartao, categoria, tipoAcao);
     }
 
     @Override
@@ -124,6 +136,7 @@ public class Despesa implements Serializable {
                 ", conta=" + conta +
                 ", cartao=" + cartao +
                 ", categoria=" + categoria +
+                ", tipoAcao=" + tipoAcao +
                 '}';
     }
 }

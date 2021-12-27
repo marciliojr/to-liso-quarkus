@@ -3,6 +3,7 @@ package com.gestor.receita;
 import com.gestor.cartao.Cartao;
 import com.gestor.categoria.Categoria;
 import com.gestor.conta.Conta;
+import com.gestor.util.TipoAcaoEfetivadaEnum;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -35,6 +36,9 @@ public class Receita  implements Serializable {
 
     @OneToOne
     private Categoria categoria;
+
+    @Enumerated
+    private TipoAcaoEfetivadaEnum tipoAcao;
 
     public Receita() {
     }
@@ -95,17 +99,25 @@ public class Receita  implements Serializable {
         this.categoria = categoria;
     }
 
+    public TipoAcaoEfetivadaEnum getTipoAcao() {
+        return tipoAcao;
+    }
+
+    public void setTipoAcao(TipoAcaoEfetivadaEnum tipoAcao) {
+        this.tipoAcao = tipoAcao;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Receita receita = (Receita) o;
-        return Objects.equals(id, receita.id) && Objects.equals(valor, receita.valor) && Objects.equals(dataHoraReceita, receita.dataHoraReceita) && Objects.equals(descricao, receita.descricao) && Objects.equals(conta, receita.conta) && Objects.equals(cartao, receita.cartao) && Objects.equals(categoria, receita.categoria);
+        return Objects.equals(id, receita.id) && Objects.equals(valor, receita.valor) && Objects.equals(dataHoraReceita, receita.dataHoraReceita) && Objects.equals(descricao, receita.descricao) && Objects.equals(conta, receita.conta) && Objects.equals(cartao, receita.cartao) && Objects.equals(categoria, receita.categoria) && tipoAcao == receita.tipoAcao;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, valor, dataHoraReceita, descricao, conta, cartao, categoria);
+        return Objects.hash(id, valor, dataHoraReceita, descricao, conta, cartao, categoria, tipoAcao);
     }
 
     @Override
@@ -118,6 +130,7 @@ public class Receita  implements Serializable {
                 ", conta=" + conta +
                 ", cartao=" + cartao +
                 ", categoria=" + categoria +
+                ", tipoAcao=" + tipoAcao +
                 '}';
     }
 }

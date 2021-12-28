@@ -26,9 +26,9 @@ public class DespesaController {
     }
 
     @GET
-    @Path("despesaMes/{idUsuario}")
-    public Response obterDespesasMes(@PathParam Long idUsuario) {
-        ListaResponseDespesaDTO resposta = service.obterDespesasMes(idUsuario);
+    @Path("despesaMes/{idUsuario}/{tipo}")
+    public Response obterDespesasMes(@PathParam Long idUsuario, @PathParam Integer tipo) {
+        ListaResponseDespesaDTO resposta = service.obterDespesasMes(idUsuario, tipo);
         return Response.ok(resposta).build();
     }
 

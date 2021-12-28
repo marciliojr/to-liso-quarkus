@@ -19,8 +19,8 @@ public class DespesaService {
         return repositorio.obterSaldoDespesasMes(idUsuario);
     }
 
-    public ListaResponseDespesaDTO obterDespesasMes(Long idUsuario) {
-        return repositorio.obterDespesasMes(idUsuario);
+    public ListaResponseDespesaDTO obterDespesasMes(Long idUsuario, Integer tipo) {
+        return repositorio.obterDespesasMes(idUsuario, tipo);
     }
 
 

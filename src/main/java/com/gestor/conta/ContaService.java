@@ -1,15 +1,11 @@
 package com.gestor.conta;
 
-import com.gestor.banco.Banco;
-import com.gestor.despesa.Despesa;
-import com.gestor.usuario.Usuario;
+import com.gestor.conta.dto.ListaResponseContaDTO;
 import com.gestor.util.dto.BigDecimalDTO;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-import java.math.BigDecimal;
-import java.util.ArrayList;
 
 @RequestScoped
 public class ContaService {
@@ -32,4 +28,7 @@ public class ContaService {
    }
 
 
+    public ListaResponseContaDTO obterContasUsuario(Long idUsuario) {
+        return repositorio.obterContasUsuario(idUsuario);
+    }
 }

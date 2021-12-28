@@ -40,14 +40,20 @@ public class DespesaRepository implements PanacheRepository<Despesa> {
     }
 
 
-    public ListaResponseDespesaDTO obterDespesasMes(Long idUsuario) {
+    public ListaResponseDespesaDTO obterDespesasMes(Long idUsuario, Integer tipo) {
         Map<String, Object> params = new HashMap<>();
         params.put("idUsuario", idUsuario);
         params.put("mesInicial", mesInicial);
         params.put("mesFinal", mesFinal);
 
         StringBuilder query = new StringBuilder();
-        query.append("conta.usuario.id = :idUsuario AND dataHoraDespesa >= :mesInicial AND dataHoraDespesa <= :mesFinal");
+        if(TipoDespesa.CONTA.getCodigo().equals(tipo)) {
+            query.append("conta.usuario.id = :idUsuario AND dataHoraDespesa >= :mesInicial AND dataHoraDespesa <= :mesFinal");
+        }
+
+        if(TipoDespesa.CARTAO.getCodigo().equals(tipo)){
+            query.append("cartao.usuario.id = :idUsuario AND dataHoraDespesa >= :mesInicial AND dataHoraDespesa <= :mesFinal");
+        }
 
         List<Despesa> resultado = list(query.toString(), params);
 
@@ -55,7 +61,6 @@ public class DespesaRepository implements PanacheRepository<Despesa> {
             DespesaDTO dto = new DespesaDTO(despesa);
             return dto;
         }).collect(Collectors.toList());
-
 
         return new ListaResponseDespesaDTO(dtos);
     }

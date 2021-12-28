@@ -1,9 +1,11 @@
 package com.gestor.cartao;
 
 import com.gestor.despesa.Despesa;
+import com.gestor.usuario.Usuario;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
@@ -20,6 +22,10 @@ public class Cartao implements Serializable {
     private String nome;
     @OneToOne
     private Embossadora embossadora;
+
+    @NotNull
+    @OneToOne
+    private Usuario usuario;
 
     public Cartao() {
     }
@@ -48,17 +54,25 @@ public class Cartao implements Serializable {
         this.embossadora = embossadora;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cartao cartao = (Cartao) o;
-        return Objects.equals(id, cartao.id) && Objects.equals(nome, cartao.nome) && Objects.equals(embossadora, cartao.embossadora);
+        return Objects.equals(id, cartao.id) && Objects.equals(nome, cartao.nome) && Objects.equals(embossadora, cartao.embossadora) && Objects.equals(usuario, cartao.usuario);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nome, embossadora);
+        return Objects.hash(id, nome, embossadora, usuario);
     }
 
     @Override
@@ -67,6 +81,7 @@ public class Cartao implements Serializable {
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", embossadora=" + embossadora +
+                ", usuario=" + usuario +
                 '}';
     }
 }

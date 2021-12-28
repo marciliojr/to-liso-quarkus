@@ -36,9 +36,9 @@ public class ContaController {
 
 
     @GET
-    @Path("saldoGeral/{usuarioEmail}")
-    public Response obterSaldoGeralContas(@PathParam String usuarioEmail){
-        BigDecimalDTO resposta = service.obterSaldoGeralContas(usuarioEmail);
+    @Path("saldoGeral/{idUsuario}")
+    public Response obterSaldoGeralContas(@PathParam Long idUsuario){
+        BigDecimalDTO resposta = service.obterSaldoGeralContas(idUsuario);
         return Response.ok(resposta).build();
     }
 

@@ -12,8 +12,8 @@ public class ReceitaService {
     @Inject
     private ReceitaRepository repositorio;
 
-    public BigDecimalDTO obterSaldoReceitasMes(String emailUsuario) {
-        return repositorio.obterSaldoReceitasMes(emailUsuario);
+    public BigDecimalDTO obterSaldoReceitasMes(Long idUsuario) {
+        return repositorio.obterSaldoReceitasMes(idUsuario);
     }
 
 }

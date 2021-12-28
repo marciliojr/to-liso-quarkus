@@ -15,12 +15,12 @@ public class DespesaService {
     @Inject
     private DespesaRepository repositorio;
 
-    public BigDecimalDTO obterSaldoDespesasMes(String emailUsuario) {
-        return repositorio.obterSaldoDespesasMes(emailUsuario);
+    public BigDecimalDTO obterSaldoDespesasMes(Long idUsuario) {
+        return repositorio.obterSaldoDespesasMes(idUsuario);
     }
 
-    public ListaResponseDespesaDTO obterDespesasMes(String emailUsuario) {
-        return repositorio.obterDespesasMes(emailUsuario);
+    public ListaResponseDespesaDTO obterDespesasMes(Long idUsuario) {
+        return repositorio.obterDespesasMes(idUsuario);
     }
 
 

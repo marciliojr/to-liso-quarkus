@@ -13,7 +13,7 @@ import java.util.Date;
 public class ReceitaRepository implements PanacheRepository<Receita> {
 
 
-    public BigDecimalDTO obterSaldoReceitasMes(String emailUsuario) {
+    public BigDecimalDTO obterSaldoReceitasMes(Long idUsuario) {
         StringBuilder queryHN = new StringBuilder();
         LocalDateTime hoje = LocalDateTime.now();
         LocalDateTime mesInicial = LocalDateTime.of(hoje.getYear(),hoje.getMonthValue(),1,0,0);
@@ -22,8 +22,8 @@ public class ReceitaRepository implements PanacheRepository<Receita> {
         Date dataInicial = Date.from(mesInicial.atZone(ZoneId.systemDefault()).toInstant());
         Date dataFinal = Date.from(mesFinal.atZone(ZoneId.systemDefault()).toInstant());
 
-        queryHN.append("SELECT SUM(r.valor) FROM Receita r INNER JOIN Conta c ON c.id = r.conta_id INNER JOIN Usuario u ON u.id = c.id WHERE u.email = :usuarioEmail AND r.dataHoraReceita >= :mesInicial AND r.dataHoraReceita <= :mesFinal");
-        BigDecimal somatorio = (BigDecimal) getEntityManager().createNativeQuery(queryHN.toString()).setParameter("usuarioEmail", emailUsuario).setParameter("mesInicial", dataInicial).setParameter("mesFinal", dataFinal).getSingleResult();
+        queryHN.append("SELECT SUM(r.valor) FROM Receita r INNER JOIN Conta c ON c.id = r.conta_id INNER JOIN Usuario u ON u.id = c.id WHERE u.id = :idUsuario AND r.dataHoraReceita >= :mesInicial AND r.dataHoraReceita <= :mesFinal");
+        BigDecimal somatorio = (BigDecimal) getEntityManager().createNativeQuery(queryHN.toString()).setParameter("usuarioEmail", idUsuario).setParameter("mesInicial", dataInicial).setParameter("mesFinal", dataFinal).getSingleResult();
         BigDecimalDTO valor = new BigDecimalDTO(somatorio);
         return valor;
     }

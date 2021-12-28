@@ -19,16 +19,16 @@ public class DespesaController {
     private DespesaService service;
 
     @GET
-    @Path("saldoDespesaMes/{usuarioEmail}")
-    public Response obterSaldoGeralContas(@PathParam String usuarioEmail) {
-        BigDecimalDTO resposta = service.obterSaldoDespesasMes(usuarioEmail);
+    @Path("saldoDespesaMes/{idUsuario}")
+    public Response obterSaldoGeralContas(@PathParam Long idUsuario) {
+        BigDecimalDTO resposta = service.obterSaldoDespesasMes(idUsuario);
         return Response.ok(resposta).build();
     }
 
     @GET
-    @Path("despesaMes/{usuarioEmail}")
-    public Response obterDespesasMes(@PathParam String usuarioEmail) {
-        ListaResponseDespesaDTO resposta = service.obterDespesasMes(usuarioEmail);
+    @Path("despesaMes/{idUsuario}")
+    public Response obterDespesasMes(@PathParam Long idUsuario) {
+        ListaResponseDespesaDTO resposta = service.obterDespesasMes(idUsuario);
         return Response.ok(resposta).build();
     }
 

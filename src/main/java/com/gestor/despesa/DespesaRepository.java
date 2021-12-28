@@ -30,24 +30,24 @@ public class DespesaRepository implements PanacheRepository<Despesa> {
 
     }
 
-    public BigDecimalDTO obterSaldoDespesasMes(String emailUsuario) {
+    public BigDecimalDTO obterSaldoDespesasMes(Long idUsuario) {
         StringBuilder queryHN = new StringBuilder();
 
-        queryHN.append("SELECT SUM(r.valor) FROM Despesa r INNER JOIN Conta c ON c.id = r.conta_id INNER JOIN Usuario u ON u.id = c.id WHERE u.email = :usuarioEmail AND r.dataHoraDespesa >= :mesInicial AND r.dataHoraDespesa <= :mesFinal");
-        BigDecimal somatorio = (BigDecimal) getEntityManager().createNativeQuery(queryHN.toString()).setParameter("usuarioEmail", emailUsuario).setParameter("mesInicial", dataInicial).setParameter("mesFinal", dataFinal).getSingleResult();
+        queryHN.append("SELECT SUM(r.valor) FROM Despesa r INNER JOIN Conta c ON c.id = r.conta_id INNER JOIN Usuario u ON u.id = c.id WHERE u.id = :idUsuario AND r.dataHoraDespesa >= :mesInicial AND r.dataHoraDespesa <= :mesFinal");
+        BigDecimal somatorio = (BigDecimal) getEntityManager().createNativeQuery(queryHN.toString()).setParameter("idUsuario", idUsuario).setParameter("mesInicial", dataInicial).setParameter("mesFinal", dataFinal).getSingleResult();
         BigDecimalDTO valor = new BigDecimalDTO(somatorio);
         return valor;
     }
 
 
-    public ListaResponseDespesaDTO obterDespesasMes(String emailUsuario) {
+    public ListaResponseDespesaDTO obterDespesasMes(Long idUsuario) {
         Map<String, Object> params = new HashMap<>();
-        params.put("usuarioEmail", emailUsuario);
+        params.put("idUsuario", idUsuario);
         params.put("mesInicial", mesInicial);
         params.put("mesFinal", mesFinal);
 
         StringBuilder query = new StringBuilder();
-        query.append("conta.usuario.email = :usuarioEmail AND dataHoraDespesa >= :mesInicial AND dataHoraDespesa <= :mesFinal");
+        query.append("conta.usuario.id = :idUsuario AND dataHoraDespesa >= :mesInicial AND dataHoraDespesa <= :mesFinal");
 
         List<Despesa> resultado = list(query.toString(), params);
 

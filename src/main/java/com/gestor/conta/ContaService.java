@@ -27,8 +27,8 @@ public class ContaService {
         return repositorio.buscarPorBanco(codigoBanco);
     }
 
-   public BigDecimalDTO obterSaldoGeralContas(String emailUsuario){
-        return repositorio.obterSaldoGeralContas(emailUsuario);
+   public BigDecimalDTO obterSaldoGeralContas(Long idUsuario){
+        return repositorio.obterSaldoGeralContas(idUsuario);
    }
 
 

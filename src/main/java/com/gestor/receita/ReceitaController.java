@@ -16,9 +16,9 @@ public class ReceitaController {
     private ReceitaService service;
 
     @GET
-    @Path("saldoReceitaMes/{usuarioEmail}")
-    public Response obterSaldoGeralContas(@PathParam String usuarioEmail) {
-        BigDecimalDTO resposta = service.obterSaldoReceitasMes(usuarioEmail);
+    @Path("saldoReceitaMes/{idUsuario}")
+    public Response obterSaldoGeralContas(@PathParam Long idUsuario) {
+        BigDecimalDTO resposta = service.obterSaldoReceitasMes(idUsuario);
         return Response.ok(resposta).build();
     }
 

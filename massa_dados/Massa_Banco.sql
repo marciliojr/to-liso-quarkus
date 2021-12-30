@@ -55,6 +55,23 @@ insert into Categoria (descricao) values
 ('Familia e Filhos'),
 ('Outros');
 
+-- embossadora
+insert into Embossadora (bandeira, tipoCartao) values
+('Visa', 2),
+('Mastercard', 2),
+('Elo', 2),
+('Visa-Electron', 1),
+('Maestro', 1);
+
+-- cartao
+insert into Cartao (nome, embossadora_id, Usuario_id) values
+('Nubank', 2, 2),
+('Next', 1, 1),
+('Bradesco Elo', 3, 3),
+('Itau Debito', 4, 2),
+('Bradesco Debito', 5, 2);
+
+
 -- Receita
 insert into Receita (dataHoraReceita, descricao, valor, conta_id, categoria_id) values
 ('2021-02-14 18:42:26', 'Receitas teste usuario a', 10, 1, 1),
@@ -63,8 +80,17 @@ insert into Receita (dataHoraReceita, descricao, valor, conta_id, categoria_id) 
 ('2021-04-02 16:51:05', 'Receitas teste usuario teste', 10, 3, 3);
 
 
--- Despesa
+-- Despesa conta
 insert into Despesa (dataHoraDespesa, descricao, valor, conta_id, categoria_id) values
 ('2021-02-14 18:42:26', 'Compras teste usuario a', 10, 1, 1),
 ('2021-12-26 15:19:56', 'Compras teste usuario admin', 10, 2, 2),
 ('2021-04-02 16:51:05', 'Compras teste usuario teste', 10, 3, 3);
+
+-- Despesa cartao
+insert into Despesa (dataHoraDespesa, descricao, valor, cartao_id, categoria_id) values
+('2021-02-14 18:42:26', 'Compras Cartao teste usuario a', 10, 1, 1),
+('2021-12-26 15:19:56', 'Compras Cartao teste usuario admin', 10, 1, 2),
+('2021-04-02 16:51:05', 'Compras Cartao teste usuario teste', 10, 3, 3);
+
+-- Configuracoes
+insert into Configuracoes (chave, valor) values ('key_acoes', 'k6meno6Ehr3VJTzBX0hfTao2h3fS8VjdaG1oOEZA');

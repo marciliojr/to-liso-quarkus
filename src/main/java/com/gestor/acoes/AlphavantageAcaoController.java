@@ -4,6 +4,7 @@ import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
@@ -15,16 +16,23 @@ public class AlphavantageAcaoController {
 
     @GET
     @Path("valorAcaoHoje/{codigoAcao}")
-    public Response obterRespostaAcao(@PathParam String codigoAcao){
+    public Response obterRespostaAcao(@PathParam String codigoAcao) {
         RespostaAcaoDTO respostaAcaoDTO = service.obterRespostaAcao(codigoAcao);
         return Response.ok(respostaAcaoDTO).build();
     }
 
     @GET
     @Path("valorAcaoHojeTeste")
-    public Response obterRespostaAcao(){
+    public Response obterRespostaAcao() {
         RespostaAcaoDTO respostaAcaoDTO = service.obterRespostaAcao("RECR11");
         return Response.ok(respostaAcaoDTO).build();
+    }
+
+    @POST
+    @Path("criarMock")
+    public Response criarMock() {
+        service.createMockAcoes();
+        return Response.ok().build();
     }
 
 

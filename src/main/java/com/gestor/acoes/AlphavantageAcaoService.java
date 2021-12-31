@@ -1,6 +1,8 @@
 package com.gestor.acoes;
 
 import com.gestor.config.ConfiguracoesService;
+import com.gestor.usuario.Usuario;
+import com.gestor.util.dto.BigDecimalDTO;
 import org.json.JSONObject;
 
 import javax.enterprise.context.RequestScoped;
@@ -23,6 +25,15 @@ public class AlphavantageAcaoService {
 
     @Inject
     private ConfiguracoesService serviceConfiguracoes;
+
+
+    public BigDecimalDTO somatorioAcoes(Long idUsuario){
+
+
+
+
+        return null;
+    }
 
     public RespostaAcaoDTO obterRespostaAcao(String codigoAcao) {
 
@@ -67,7 +78,7 @@ public class AlphavantageAcaoService {
 
         List<String> lista = new ArrayList<String>();
         lista.add("NEOE3");
-        lista.add("ITUB3");
+        lista.add("ITUB4");
         lista.add("VRTA11");
         lista.add("BTLG11");
         lista.add("RECR11");

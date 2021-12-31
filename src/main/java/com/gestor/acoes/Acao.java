@@ -13,7 +13,7 @@ import java.util.Objects;
 public class Acao implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private BigDecimal valorAbertura;
     private BigDecimal valorFechamento;
@@ -67,13 +67,13 @@ public class Acao implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Acao acoes = (Acao) o;
-        return Objects.equals(data, acoes.data) && Objects.equals(nome, acoes.nome);
+        Acao acao = (Acao) o;
+        return Objects.equals(nome, acao.nome);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(data, nome);
+        return Objects.hash(nome);
     }
 
     @Override

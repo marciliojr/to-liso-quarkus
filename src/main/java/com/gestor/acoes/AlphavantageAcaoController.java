@@ -21,13 +21,6 @@ public class AlphavantageAcaoController {
         return Response.ok(respostaAcaoDTO).build();
     }
 
-    @GET
-    @Path("valorAcaoHojeTeste")
-    public Response obterRespostaAcao() {
-        RespostaAcaoDTO respostaAcaoDTO = service.obterRespostaAcao("RECR11");
-        return Response.ok(respostaAcaoDTO).build();
-    }
-
     @POST
     @Path("criarMock")
     public Response criarMock() {

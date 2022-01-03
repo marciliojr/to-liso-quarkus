@@ -1,5 +1,6 @@
 package com.gestor.acoes;
 
+import com.gestor.util.dto.BigDecimalDTO;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
 import javax.inject.Inject;
@@ -28,5 +29,10 @@ public class AlphavantageAcaoController {
         return Response.ok().build();
     }
 
+    @GET
+    @Path("somatorioAcoes/{idUsuario}")
+    public BigDecimalDTO somatorioAcoes(@PathParam Long idUsuario) {
+        return service.somatorioAcoes(idUsuario);
+    }
 
 }

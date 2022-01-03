@@ -2,11 +2,12 @@ package com.gestor.acaoesUsuario;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
+import javax.enterprise.context.ApplicationScoped;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+@ApplicationScoped
 public class AcoesUsuarioRepository implements PanacheRepository<AcoesUsuario> {
 
 

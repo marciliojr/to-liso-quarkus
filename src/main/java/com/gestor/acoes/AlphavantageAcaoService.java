@@ -1,5 +1,7 @@
 package com.gestor.acoes;
 
+import com.gestor.acaoesUsuario.AcoesUsuario;
+import com.gestor.acaoesUsuario.AcoesUsuarioService;
 import com.gestor.config.ConfiguracoesService;
 import com.gestor.usuario.Usuario;
 import com.gestor.util.dto.BigDecimalDTO;
@@ -11,6 +13,7 @@ import javax.transaction.Transactional;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.MediaType;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -24,15 +27,23 @@ public class AlphavantageAcaoService {
     private AcaoRepository repository;
 
     @Inject
+    AcoesUsuarioService acoesUsuarioService;
+
+    @Inject
     private ConfiguracoesService serviceConfiguracoes;
 
 
     public BigDecimalDTO somatorioAcoes(Long idUsuario){
 
+        List<AcoesUsuario> acoesUsuarios = acoesUsuarioService.obterAcoesUsuario(idUsuario);
 
-
-
-        return null;
+        BigDecimal valor = BigDecimal.ZERO;
+        for (AcoesUsuario acao:acoesUsuarios) {
+            Acao acaoBanco = acao.getAcao();
+            BigDecimal quantidade = acao.getQuantidade();
+            valor = valor.add(acaoBanco.getValorFechamento().multiply(quantidade));
+        }
+        return new BigDecimalDTO(valor);
     }
 
     public RespostaAcaoDTO obterRespostaAcao(String codigoAcao) {

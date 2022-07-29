@@ -12,61 +12,80 @@ public class RespostaAcaoDTO implements Serializable {
     private BigDecimal valorAbertura;
     private BigDecimal valorFechamento;
 
-    public RespostaAcaoDTO() {
+    private String teste;
+
+    public RespostaAcaoDTO(String nome, LocalDate data, BigDecimal valorAbertura, BigDecimal valorFechamento, String teste) {
+        this.nome = nome;
+        this.data = data;
+        this.valorAbertura = valorAbertura;
+        this.valorFechamento = valorFechamento;
+        this.teste = teste;
+    }
+
+    public RespostaAcaoDTO(){
+
     }
 
     public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     public LocalDate getData() {
         return data;
-    }
-
-    public void setData(LocalDate data) {
-        this.data = data;
     }
 
     public BigDecimal getValorAbertura() {
         return valorAbertura;
     }
 
-    public void setValorAbertura(BigDecimal valorAbertura) {
-        this.valorAbertura = valorAbertura;
-    }
-
     public BigDecimal getValorFechamento() {
         return valorFechamento;
+    }
+
+    public String getTeste() {
+        return teste;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
+    }
+
+    public void setValorAbertura(BigDecimal valorAbertura) {
+        this.valorAbertura = valorAbertura;
     }
 
     public void setValorFechamento(BigDecimal valorFechamento) {
         this.valorFechamento = valorFechamento;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        RespostaAcaoDTO that = (RespostaAcaoDTO) o;
-        return Objects.equals(nome, that.nome) && Objects.equals(data, that.data) && Objects.equals(valorAbertura, that.valorAbertura) && Objects.equals(valorFechamento, that.valorFechamento);
+    public void setTeste(String teste) {
+        this.teste = teste;
     }
 
-    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        if (!super.equals(object)) return false;
+        RespostaAcaoDTO that = (RespostaAcaoDTO) object;
+        return java.util.Objects.equals(nome, that.nome) && java.util.Objects.equals(data, that.data) && java.util.Objects.equals(valorAbertura, that.valorAbertura) && java.util.Objects.equals(valorFechamento, that.valorFechamento) && java.util.Objects.equals(teste, that.teste);
+    }
+
     public int hashCode() {
-        return Objects.hash(nome, data, valorAbertura, valorFechamento);
+        return java.util.Objects.hash(super.hashCode(), nome, data, valorAbertura, valorFechamento, teste);
     }
 
-    @Override
-    public String toString() {
+    @java.lang.Override
+    public java.lang.String toString() {
         return "RespostaAcaoDTO{" +
                 "nome='" + nome + '\'' +
                 ", data=" + data +
                 ", valorAbertura=" + valorAbertura +
                 ", valorFechamento=" + valorFechamento +
+                ", teste='" + teste + '\'' +
                 '}';
     }
 }
